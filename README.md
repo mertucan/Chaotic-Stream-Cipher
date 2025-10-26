@@ -21,6 +21,16 @@ The application follows the classic stream cipher architecture but uses a chaoti
 3.  **Byte Conversion:** Each number in the sequence is converted into a byte (0-255) to form the final keystream.
 4.  **XOR Operation:** The input text (as bytes) is XORed with the keystream to produce the ciphertext. The same process decrypts the ciphertext back to plaintext.
 
+## 🖼️ Application Screenshots
+
+Here are some screenshots of the application in action:
+
+**Main Interface:**
+![Main Interface of the Chaotic Stream Cipher application](static/img/image1.png)
+
+**Encryption/Decryption Process:**
+![Detailed breakdown of the encryption process](static/img/image2.png)
+
 ## ⚙️ Setup and Installation
 
 To run this project locally, follow these steps:
