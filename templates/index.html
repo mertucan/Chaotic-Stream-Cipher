@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaotic Stream Cipher</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-shapes"></div>
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="header">
+                <h1>Chaotic Stream Cipher</h1>
+            </div>
+            <p class="subtitle">Encrypt and decrypt your text using a Logistic Map-based stream cipher.</p>
+            <form id="cipher-form">
+                <textarea name="text" rows="5" placeholder="Enter text to encrypt or decrypt..."></textarea>
+                <div class="seed-container">
+                    <input type="text" name="seed" placeholder="Enter the security seed...">
+                    <button type="button" id="generate-seed-btn" title="Generate Random Seed">
+                        <i class="fas fa-dice"></i>
+                    </button>
+                </div>
+                <div class="buttons">
+                    <button type="submit" name="operation" value="encrypt"><i class="fas fa-lock"></i> Encrypt</button>
+                    <button type="submit" name="operation" value="decrypt"><i class="fas fa-unlock"></i> Decrypt</button>
+                </div>
+            </form>
+
+            <div id="result-container">
+                <!-- Results and steps will be dynamically inserted here -->
+            </div>
+            
+            <div class="explanation">
+                <h2>Nasıl Çalışır?</h2>
+                <p>Bu araç, <strong>Lojistik Harita (Logistic Map)</strong> adı verilen kaotik bir fonksiyona dayalı <strong>Akış Şifreleme (Stream Cipher)</strong> algoritması kullanır. Temel adımlar şunlardır:</p>
+                <ol>
+                    <li><strong>Başlangıç Parametrelerinin Üretimi:</strong> Girdiğiniz 'güvenlik anahtarı' (seed), SHA-256 algoritmasıyla özetlenir. Bu özet, Lojistik Harita için iki kritik başlangıç parametresini deterministik olarak üretir: <em>X<sub>0</sub></em> (0 ile 1 arasında bir başlangıç değeri) ve <em>&lambda;</em> (3.57 ile 4.0 aralığında kaotik davranışı sağlayan bir parametre).</li>
+                    <li><strong>Kaotik Anahtar Akışı Üretimi:</strong> Lojistik Harita denklemi, <em>X<sub>n+1</sub> = &lambda; &middot; X<sub>n</sub> &middot; (1 - X<sub>n</sub>)</em>, tekrar tekrar uygulanarak 0 ile 1 arasında rastgele gibi görünen bir sayı dizisi oluşturur. Bu hesaplamalarda yüksek hassasiyet, kaotik yapının korunması için kritiktir.</li>
+                    <li><strong>Byte'a Dönüştürme:</strong> Üretilen her kaotik sayı, <em>S<sub>i</sub> = (X<sub>i+1</sub> &middot; 10<sup>15</sup>) mod 256</em> formülü kullanılarak 0-255 aralığında bir tam sayıya (byte) dönüştürülür. Bu byte dizisi, "anahtar akışını" (keystream) oluşturur.</li>
+                    <li><strong>XOR İşlemi:</strong> Metninizin her bir baytı, anahtar akışındaki karşılık gelen bayt ile bit düzeyinde XOR (<em>&oplus;</em>) işlemine tabi tutulur: <em>Y<sub>i</sub> = M<sub>i</sub> &oplus; S<sub>i</sub></em>. Bu işlem tersine çevrilebilir olduğundan, aynı anahtar akışıyla şifreli metne tekrar uygulandığında orijinal metin elde edilir.</li>
+                    <li><strong>Base64 Kodlama:</strong> Şifrelenmiş ikili veri, metin tabanlı ortamlarda güvenli bir şekilde taşınabilmesi için Base64 formatına kodlanır.</li>
+                    <li><strong>Detaylı Döküm:</strong> İşlem sonrasında, her bir karakterin (UTF-8 çoklu byte karakterler dahil) byte dönüşümünü, anahtar akışındaki karşılığını ve XOR işlemi sonrası sonucunu gösteren ayrıntılı bir tablo sunularak süreç şeffaf hale getirilir.</li>
+                </ol>
+                <p><strong>Önemli:</strong> Bu şifrelemenin güvenliği tamamen anahtara (seed) bağlıdır. Mesajı çözmek için, şifrelemede kullanılan anahtarın aynısına sahip olmanız gerekir.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Created by Mert Uçan
+    </footer>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

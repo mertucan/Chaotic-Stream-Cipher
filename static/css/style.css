@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
+
+:root {
+    --background-color: #0d0d0d;
+    --container-bg: #1a1a1a;
+    --primary-accent: #00aeff; /* Neon Blue */
+    --text-color: #e0e0e0;
+    --light-text: #888;
+    --input-bg: #2a2a2a;
+    --border-color: #333;
+    --error-bg: rgba(255, 71, 71, 0.1);
+    --error-border: #ff4747;
+    --error-text: #ffabab;
+    --success-bg: rgba(0, 174, 255, 0.05);
+    --success-border: var(--primary-accent);
+    --success-text: #9ad7ff;
+}
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image:
+        radial-gradient(var(--light-text) 0.5px, transparent 0.5px),
+        radial-gradient(var(--light-text) 0.5px, var(--background-color) 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+}
+
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 700px;
+    width: 100%;
+    background: var(--container-bg);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 174, 255, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-accent);
+    font-weight: 700;
+    margin: 0;
+    font-size: 2.2em;
+    text-shadow: 0 0 5px var(--primary-accent);
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--light-text);
+    margin-bottom: 30px;
+}
+
+textarea, input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    box-sizing: border-box; 
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+textarea:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 10px rgba(0, 174, 255, 0.3);
+}
+
+.seed-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.seed-container input {
+    flex-grow: 1;
+    margin-bottom: 0;
+}
+
+#generate-seed-btn {
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--primary-accent);
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+#generate-seed-btn:hover {
+    background-color: var(--primary-accent);
+    color: var(--background-color);
+    box-shadow: 0 0 10px var(--primary-accent);
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+button {
+    padding: 12px 20px;
+    border: 1px solid var(--primary-accent);
+    border-radius: 4px;
+    color: var(--primary-accent);
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+button:hover {
+    background-color: var(--primary-accent);
+    color: var(--background-color);
+    box-shadow: 0 0 15px var(--primary-accent);
+}
+
+button[name="operation"][value="decrypt"] {
+    border-color: #ff4747;
+    color: #ff4747;
+}
+
+button[name="operation"][value="decrypt"]:hover {
+    background-color: #ff4747;
+    color: var(--background-color);
+    box-shadow: 0 0 15px #ff4747;
+}
+
+
+.result, .error {
+    margin-top: 30px;
+    padding: 15px;
+    border-radius: 4px;
+    word-wrap: break-word;
+    font-size: 0.9rem;
+}
+
+.result {
+    background-color: var(--success-bg);
+    border: 1px solid var(--success-border);
+    color: var(--success-text);
+}
+
+.error {
+    background-color: var(--error-bg);
+    border: 1px solid var(--error-border);
+    color: var(--error-text);
+}
+
+.explanation {
+    margin-top: 40px;
+    background: transparent;
+    padding: 25px;
+    border-radius: 4px;
+    border: 1px dashed var(--border-color);
+}
+
+h2 {
+    color: var(--primary-accent);
+    text-align: center;
+    margin-top: 0;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--light-text);
+}
+
+.steps-container {
+    margin-top: 20px;
+}
+
+.step {
+    background-color: #222;
+    border-left: 3px solid var(--primary-accent);
+    padding: 12px 18px;
+    margin-bottom: 12px;
+    border-radius: 0 4px 4px 0;
+    animation: fadeIn 0.4s ease-in-out;
+    word-wrap: break-word;
+    font-size: 0.85rem;
+    color: var(--light-text);
+}
+
+.step p {
+    margin: 0;
+}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: var(--primary-accent);
+    margin: 20px auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.details-table-container {
+    margin-top: 30px;
+}
+
+.details-table-container h3 {
+    text-align: center;
+    color: var(--primary-accent);
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    animation: fadeIn 0.5s ease-in-out;
+    table-layout: fixed;
+}
+
+.details-table th, .details-table td {
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.details-table th {
+    background-color: #2a2a2a;
+    color: var(--primary-accent);
+}
+
+.details-table tbody tr:nth-child(odd) {
+    background-color: var(--container-bg);
+}
+
+.details-table tbody tr:nth-child(even) {
+    background-color: #222;
+}
+
+.details-table td:first-child {
+    font-weight: 700;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.char-rep {
+    color: var(--light-text);
+    font-size: 0.8em;
+    margin-left: 4px;
+}
