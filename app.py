@@ -4,7 +4,7 @@ import binascii
 import os
 import random
 import string
-from cipher import process_text, generate_initial_conditions
+from cipher import generate_initial_conditions, generate_keystream, xor_with_keystream
 
 app = Flask(__name__)
 
@@ -45,7 +45,8 @@ def process():
             text_bytes = text.encode('utf-8')
             steps.append(f'2. Text to Bytes: Plaintext converted to {len(text_bytes)} UTF-8 bytes (e.g., {text_bytes[:8].hex(" ")}...).')
             
-            result_bytes, _, _, keystream = process_text(text_bytes, seed)
+            keystream = generate_keystream(x0, r, len(text_bytes))
+            result_bytes = xor_with_keystream(text_bytes, keystream)
             
             steps.append(f'3. Keystream Generated: A {len(keystream)}-byte keystream was produced from the initial parameters (e.g., {keystream[:8].hex(" ")}...).')
             
@@ -84,7 +85,8 @@ def process():
             except (binascii.Error, ValueError):
                 return jsonify({'error': 'Invalid Base64 input. Please provide a valid encrypted text.'}), 400
             
-            result_bytes, _, _, keystream = process_text(text_bytes, seed)
+            keystream = generate_keystream(x0, r, len(text_bytes))
+            result_bytes = xor_with_keystream(text_bytes, keystream)
             steps.append(f'3. Keystream Generated: The exact same {len(keystream)}-byte keystream was reproduced from the seed (e.g., {keystream[:8].hex(" ")}...).')
 
             if text_bytes:
